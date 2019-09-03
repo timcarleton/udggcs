@@ -225,7 +225,7 @@ for sub in w8[len(gcdat):]:
                 gcmwithinr,currentpositions=getmrfromcall.getmwithinr(gcparticles,subdat,mstarsubi,rstarsubi,r0=np.array(gcpositions),alpha=alphasubi,beta=betasubi,gamma=gammasubi,m200=m200subi,r200=r200subi,deltac=deltacsubi,redshift=fsubs[1].data.redshift[sub,99-cutout],stripped=False)
 
             if len(mgclist)>0:
-                dmdt=getgcdmdt.getgcdmdt(np.array(mgclist),np.array(currentpositions),np.sqrt(gn*gcmwithinr/currentpositions),withiso=False)
+                dmdt=getgcdmdt.getgcdmdt(np.array(mgclist),np.array(gcpositions),np.sqrt(gn*gcmwithinr/gcpositions),withiso=False)
                 print('a',dmdt)
                 dmdt+=getdmdtcce.getgcdmdtcce(subdat,gcparticles,np.array(mgclist),fsubs[1].data.redshift[sub,99-cutout],np.max([np.zeros_like(zgc)-1.1,np.array(zgc)],axis=0))
                 print('b',dmdt)
@@ -283,4 +283,4 @@ for sub in w8[len(gcdat):]:
     donesubs.append(sub)
 
 #    np.savetxt('tngsubgcfrac_tngsubs_a.txt',finalgcfrac)
-    np.savetxt('tngsubgcdat_any_k15_newgcmc9r0a.txt',np.array([fsubs[1].data.id0[np.array(donesubs)],totgcmassall,finalgcfrac,gcsurvive,np.array(mediangcmass),np.array(mediangcage)]).T,header='id0\tTot GC Mass\tGC mass/M*\tNGC\tMedian Mass\tMedian Age')
+    np.savetxt('tngsubgcdat_any_k15_newgcmc9r0b.txt',np.array([fsubs[1].data.id0[np.array(donesubs)],totgcmassall,finalgcfrac,gcsurvive,np.array(mediangcmass),np.array(mediangcage)]).T,header='id0\tTot GC Mass\tGC mass/M*\tNGC\tMedian Mass\tMedian Age')
