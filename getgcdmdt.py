@@ -13,9 +13,9 @@ def getgcdmdt(m,r,vcirc,alpha=0.67,withiso=False):
     pr=41.4*r/vcirc
 
     ttide=10*(m/2E5)**alpha*pr
+    #print(pr)
 
     dmdt=-m/np.min([tiso,ttide],axis=0)
-    
     try:
         if m<=0:
             return 0

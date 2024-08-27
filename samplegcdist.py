@@ -5,7 +5,7 @@ def samplegcdist(n,mc=2E5):
     return np.random.gamma(-1,mc/1E5,size=n)*1E5
 
 
-def samplegcfrommass(mass,stop='before',mc=2E5,mmin=10000):
+def samplegcfrommass(mass,stop='before',mc=2E5,mmin=10000,slope=-1.999):
 
     if not np.isfinite(mc):
         mc=2E5
@@ -15,16 +15,16 @@ def samplegcfrommass(mass,stop='before',mc=2E5,mmin=10000):
 
     if mass<mc/1000:
         return np.array([])
-    mean=mc/1000
-    print('m',mass,mc,mass/mean)
+    mean=2086.02180795*np.log10(mc)**2-5809.87607421*np.log10(mc)+2371.73620262
+    mean=mean/5
+    #print('m',mass,mc,mass/mean)
 #    print(mass/mean)
 #    allgcs=samplegcdist(int(mass/mean))
-    
-    allgcs=sampleschecter.sampleschecter( -1.999, mc, mmin,int(mass/mean))
+    allgcs=sampleschecter.sampleschecter(slope, mc, mmin,int(mass/mean))
 
     if stop=='before':
         if np.sum(allgcs)<=mass:
-            allgcs=np.append(allgcs,sampleschecter.sampleschecter( -1.999, mc, mmin,1))
+            allgcs=np.append(allgcs,sampleschecter.sampleschecter( slope, mc, mmin,1))
         while np.sum(allgcs)>=mass:
             allgcs=allgcs[0:-1]
         return allgcs
@@ -33,8 +33,8 @@ def samplegcfrommass(mass,stop='before',mc=2E5,mmin=10000):
         if np.sum(allgcs)>mass:
             while np.sum(allgcs)>=mass:
                 allgcs=allgcs[0:-1]
-            return np.append(allgcs,sampleschecter.sampleschecter( -1.999, mc, mmin,1))
+            return np.append(allgcs,sampleschecter.sampleschecter( slope, mc, mmin,1))
         else:
             while np.sum(allgcs)<=mass:
-                allgcs=np.append(allgcs,sampleschecter.sampleschecter( -1.999, mc, mmin,1))
+                allgcs=np.append(allgcs,sampleschecter.sampleschecter(slope, mc, mmin,1))
             return allgcs
